@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class PlayerController : MonoBehaviour {
 
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2d;
     public Text points;
     public Text winText;
+    public AudioSource audioClip;
 
     // Start() gets called once in a life time of the game. Used to initialise variables
     private void Start()
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour {
         targetScore = 4;
         winText.text = "";
         SetPointsText();
+        audioClip = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -49,6 +52,11 @@ public class PlayerController : MonoBehaviour {
             count++;
             SetPointsText();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        audioClip.Play();
     }
 
     void SetPointsText()
